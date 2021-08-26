@@ -9,6 +9,11 @@ import com.rullywjntk.mygithub.R
 import com.rullywjntk.mygithub.adapter.SectionPagerAdapter
 import com.rullywjntk.mygithub.databinding.ActivityDetailBinding
 import com.rullywjntk.mygithub.model.DetailViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 
 class DetailActivity : AppCompatActivity() {
 
@@ -26,10 +31,12 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val user = intent.getStringExtra(EXTRA_USER)
+        val id = intent.getIntExtra(EXTRA_FAVORITE, 0)
+        val avatar = intent.getStringExtra(EXTRA_AVATAR)
         val bundle = Bundle()
         bundle.putString(EXTRA_USER, user)
 
-        detailModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
+        detailModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         detailModel.setDetailUser(user.toString())
         detailModel.getDetailUser().observe(this, {
             if (it != null) {
@@ -48,6 +55,33 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         })
+
+        var isChecked = false
+        CoroutineScope(Dispatchers.IO).launch {
+            val size = detailModel.checkUser(id)
+            withContext(Dispatchers.Main){
+                if (size != null){
+                    if (size > 0) {
+                        detailBinding.toggleFavorite.isChecked = true
+                        isChecked = true
+                    } else {
+                        detailBinding.toggleFavorite.isChecked = false
+                        isChecked = false
+                    }
+                }
+            }
+        }
+
+        detailBinding.toggleFavorite.setOnClickListener {
+            isChecked = !isChecked
+            if (isChecked){
+                detailModel.addFavorite(id, user.toString(), avatar.toString())
+            } else {
+                detailModel.deleteUser(id)
+            }
+            detailBinding.toggleFavorite.isChecked = isChecked
+        }
+
         val sectionPagerAdapter = SectionPagerAdapter(this,  bundle )
         val viewPager = detailBinding.viewPager
         viewPager.adapter = sectionPagerAdapter
@@ -64,6 +98,8 @@ class DetailActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_USER = "extra_user"
+        const val EXTRA_FAVORITE = "extra_favorite"
+        const val EXTRA_AVATAR = "extra_avatar"
         private val TAB_TITLES = intArrayOf(R.string.follower, R.string.following)
     }
 

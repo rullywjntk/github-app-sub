@@ -66,9 +66,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSelectedUser(data: User) {
-        val intent = Intent(this@MainActivity, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.EXTRA_USER, data.login)
-        startActivity(intent)
+        Intent(this@MainActivity, DetailActivity::class.java).also {
+            it.putExtra(DetailActivity.EXTRA_USER, data.login)
+            it.putExtra(DetailActivity.EXTRA_FAVORITE, data.id)
+            it.putExtra(DetailActivity.EXTRA_AVATAR, data.avatar_url)
+            startActivity(it)
+        }
     }
 
     private fun showLoading(state: Boolean) {
