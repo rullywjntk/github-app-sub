@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">My Github</string>
+    <string name="list">Daftar Pengguna</string>
+    <string name="detail">Detil Pengguna</string>
+
+    <string name="name">Nama</string>
+    <string name="username">Nama Pengguna</string>
+    <string name="repository1">%s Repositori</string>
+    <string name="company">Perusahaan</string>
+    <string name="location">Lokasi</string>
+    <string name="follower1">%s Pengikut</string>
+    <string name="following1">%s Mengikuti</string>
+    <string name="search">Cari</string>
+    <string name="change_language_settings">Ubah Bahasa</string>
+    <string name="follower">Pengikut</string>
+    <string name="following">Mengikuti</string>
+</resources>
