@@ -11,14 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rullywjntk.mygithub.adapter.FollowAdapter
 import com.rullywjntk.mygithub.databinding.FragmentFollowersBinding
-import com.rullywjntk.mygithub.model.FollowersModel
+import com.rullywjntk.mygithub.model.FollowersViewModel
 import com.rullywjntk.mygithub.view.detail.DetailActivity
 
 class FollowersFragment : Fragment() {
 
     private var _binding : FragmentFollowersBinding? = null
     private val binding get() = _binding!!
-    private lateinit var followersModel: FollowersModel
+    private lateinit var followersViewModel: FollowersViewModel
     private lateinit var adapter: FollowAdapter
     private lateinit var username: String
 
@@ -45,9 +45,9 @@ class FollowersFragment : Fragment() {
             rvUser.adapter = adapter
         }
         showLoading(true)
-        followersModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FollowersModel::class.java)
-        followersModel.setFollowers(username)
-        followersModel.getFollowers().observe(viewLifecycleOwner, {
+        followersViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FollowersViewModel::class.java)
+        followersViewModel.setFollowers(username)
+        followersViewModel.getFollowers().observe(viewLifecycleOwner, {
             if (it != null) {
                 adapter.setData(it)
                 showLoading(false)

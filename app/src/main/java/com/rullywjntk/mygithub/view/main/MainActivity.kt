@@ -16,6 +16,7 @@ import com.rullywjntk.mygithub.data.User
 import com.rullywjntk.mygithub.databinding.ActivityMainBinding
 import com.rullywjntk.mygithub.model.MainViewModel
 import com.rullywjntk.mygithub.view.detail.DetailActivity
+import com.rullywjntk.mygithub.view.favorite.FavoriteActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -66,12 +67,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSelectedUser(data: User) {
-        Intent(this@MainActivity, DetailActivity::class.java).also {
-            it.putExtra(DetailActivity.EXTRA_USER, data.login)
-            it.putExtra(DetailActivity.EXTRA_FAVORITE, data.id)
-            it.putExtra(DetailActivity.EXTRA_AVATAR, data.avatar_url)
-            startActivity(it)
-        }
+        val intent = Intent(this@MainActivity, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.EXTRA_USER, data.login)
+        intent.putExtra(DetailActivity.EXTRA_FAVORITE, data.id)
+        intent.putExtra(DetailActivity.EXTRA_AVATAR, data.avatar_url)
+        startActivity(intent)
     }
 
     private fun showLoading(state: Boolean) {
@@ -88,9 +88,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_change_settings) {
-            val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-            startActivity(intent)
+        when(item.itemId) {
+            R.id.action_change_settings -> {
+                val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(intent)
+            }
+            R.id.favorite -> {
+                val intent = Intent(this, FavoriteActivity::class.java)
+                startActivity(intent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -14,5 +14,6 @@
     <string name="logo" translatable="false">logo</string>
     <string name="follower">Followers</string>
     <string name="following">Following</string>
+    <string name="favorite">Favorite</string>
 
 </resources>
