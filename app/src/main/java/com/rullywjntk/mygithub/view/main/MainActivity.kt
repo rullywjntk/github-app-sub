@@ -15,6 +15,7 @@ import com.rullywjntk.mygithub.adapter.UserAdapter
 import com.rullywjntk.mygithub.data.User
 import com.rullywjntk.mygithub.databinding.ActivityMainBinding
 import com.rullywjntk.mygithub.model.MainViewModel
+import com.rullywjntk.mygithub.view.alarm.AlarmActivity
 import com.rullywjntk.mygithub.view.detail.DetailActivity
 import com.rullywjntk.mygithub.view.favorite.FavoriteActivity
 
@@ -95,6 +96,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.favorite -> {
                 val intent = Intent(this, FavoriteActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.alarm -> {
+                val intent = Intent(this, AlarmActivity::class.java)
                 startActivity(intent)
             }
         }

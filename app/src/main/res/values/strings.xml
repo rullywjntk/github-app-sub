@@ -15,5 +15,11 @@
     <string name="follower">Followers</string>
     <string name="following">Following</string>
     <string name="favorite">Favorite</string>
+    <string name="alarm">Alarm</string>
+    <string name="set_alarm">Set Alarm</string>
+    <string name="message">Come a look at your favorite user</string>
+    <string name="repeating_alarm">Repeating alarm set up</string>
+    <string name="cancel_alarm">Repeating alarm is canceled</string>
+    <string name="alarm_time">Alarm Time</string>
 
 </resources>
